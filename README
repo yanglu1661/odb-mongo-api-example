@@ -1,6 +1,20 @@
-1. login to user, and enabled ords.
+1. create user for mongotest.
+sql> create user mongotest identified by yourpassword;
+sql> grant dwrole to mongotest;
+sql> grant unlimited tablespace to mongotest;
+
+2. login to user mongotest, and enabled ords.
 sql> exec ords.enable_schema(true);
 
-2.compile and run
+3. Change the source code (src/main/java/com/example/MongoDBExampleTest.java) as for your ADB setup.
+//change the connection string & database
+// Paswword: dkd134##BB--13, special character, %23 = #
+ConnectionString connectionString = new ConnectionString("mongodb://mongotest:dkd134%23%23BB--13@o4kkqjgi.adb.ap-seoul-1.oraclecloudapps.com:27017/mongotest?authMechanism=PLAIN&authSource=$external&ssl=true&retryWrites=false&loadBalanced=true");
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            // change the database to "mongotest"
+            MongoDatabase database = mongoClient.getDatabase("mongotest");
+
+4.compile and run
 
 mvn -Doracle.jdbc.fanEnabled=false compile exec:java -Dexec.mainClass="com.example.MongoDBExampleTest"
+

@@ -1,0 +1,6 @@
+1. login to user, and enabled ords.
+sql> exec ords.enable_schema(true);
+
+2.compile and run
+
+mvn -Doracle.jdbc.fanEnabled=false compile exec:java -Dexec.mainClass="com.example.MongoDBExampleTest"
